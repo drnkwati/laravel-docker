@@ -4,8 +4,10 @@
 ### Installation
 1. Install and setup docker and docker-compose on your pc or server.
 2. Open a terminal or command window.
-3. Clone this repository and change your directory to the newly created project. On windows the command is: 
+3. Clone this repository, change your directory to the newly created project and install composer dependencies. On windows the command is: 
+- git clone https://github.com/drnkwati/laravel-docker.git
 - cd laravel-docker
+- composer install
 4. Build the images and start all containers by issueing the following command 
 - docker-compose up -d
 5. Run the following command to generate app key 
