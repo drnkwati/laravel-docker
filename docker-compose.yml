@@ -12,8 +12,8 @@ services:
     links:
       - webserver
     environment:
-      - DOMAIN=webserver
-      - PORT=80
+      DOMAIN: webserver
+      PORT: 80
     networks:
       - app-network
 
