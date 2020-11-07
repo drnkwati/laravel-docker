@@ -1,6 +1,22 @@
 version: '3'
 services:
 
+  #ngrok Service
+  ngrok:
+    image: shkoliar/ngrok:latest
+    container_name: ngrokserver
+    depends_on:
+      - webserver
+    ports:
+      - 4551:4551
+    links:
+      - webserver
+    environment:
+      - DOMAIN=webserver
+      - PORT=80
+    networks:
+      - app-network
+
   #PHP Service
   app:
     build:
