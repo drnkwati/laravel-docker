@@ -20,7 +20,7 @@
         <div class="grid-container small-container">
             <h4>Tasks</h4> <hr>
             <div class="grid-x grid-margin-x">
-                <form class="cell" method="POST" enctype="multipart/form-data" >
+                <form class="cell" action="/api/tasks" method="POST" enctype="multipart/form-data" >
                     {{ csrf_field() }}
                     <fieldset class="fieldset">
                         <legend>Detail:</legend>

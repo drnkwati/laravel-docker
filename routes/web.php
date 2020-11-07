@@ -16,20 +16,6 @@ use Illuminate\Support\Facades\Route;
  */
 
 Route::get('/', function () {
-    return view('welcome');
-});
-
-Route::get('/api/tasks', function () {
-    $data = [
-        'token' => csrf_token(),
-        'items' => Task::latest()->simplePaginate(7)
-    ];
-
-    return response()->json($data);
-});
-
-// select
-Route::get('/tasks', function () {
     $data = [
         'token' => csrf_token(),
         'items' => Task::latest()->simplePaginate(7)
@@ -39,11 +25,22 @@ Route::get('/tasks', function () {
         return response()->json($data);
     }
 
-    return view('tasks/index', $data);
+    return view('helloworld', $data);
+    // return view('welcome');
+});
+
+// select
+Route::get('/api/tasks', function () {
+    $data = [
+        'token' => csrf_token(),
+        'items' => Task::latest()->simplePaginate(7)
+    ];
+
+    return response()->json($data);
 });
 
 // insert
-Route::post('/tasks', function () {
+Route::post('/api/tasks', function () {
     $data = [
         'token' => csrf_token(),
         'status' => null
@@ -68,8 +65,8 @@ Route::post('/tasks', function () {
 
 // delete
 Route::get('/tasks/truncate', function () {
-    // Task::truncate();
-    \DB::table('tasks')->truncate();
+    // \DB::table('tasks')->truncate();
+    Task::truncate();
 
-    return redirect('/tasks');
+    return redirect('/');
 });

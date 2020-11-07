@@ -42,17 +42,23 @@ COPY . /var/www
 # Copy existing application directory permissions
 COPY --chown=www:www . /var/www
 
-# copy cron file
-COPY scheduler/crontab /etc/crontabs/root
+# -------------------------------------------------------
+# Add crontab file in the cron directory
+ADD scheduler/crontab /etc/cron.d/cron-scheduler
 
 # Give execution rights on the cron job
-RUN chmod 0644 /etc/crontabs/root
+RUN chmod 0644 /etc/cron.d/cron-scheduler
 
-RUN chgrp crontab /usr/bin/crontab
-RUN chmod g+s /usr/bin/crontab
-RUN chmod 4774 -R /var/spool/cron
-# RUN chmod 600 /var/spool/cron/crontabs/*
-# RUN chmod 744 /var/run/crond.pid
+# Create the log file to be able to run tail
+RUN touch /var/log/cron.log
+
+# Install Cron
+#RUN apt-get update
+#RUN apt-get -y install cron
+
+# Run the command on container startup
+CMD cron && tail -f /var/log/cron.log
+# -------------------------------------------------------
 
 # Change current user to www
 USER www
