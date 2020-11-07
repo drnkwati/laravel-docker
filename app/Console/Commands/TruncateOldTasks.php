@@ -37,9 +37,8 @@ class TruncateOldTasks extends Command
      */
     public function handle()
     {
-        return function () {
-            // Task::query()->truncate();
-            return Task::truncate();
-        } ? 1 : 0;
+        $this->info('task truncate works!!');
+
+        return Task::truncate() ? 1 : 0;
     }
 }

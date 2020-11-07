@@ -1,7 +1,6 @@
 <?php
 namespace App\Console;
 
-use App\Models\Task;
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
 
@@ -25,8 +24,11 @@ class Kernel extends ConsoleKernel
     protected function schedule(Schedule $schedule)
     {
         // $schedule->command('inspire')->hourly();
-        // $schedule->command('task:truncate')->everyMinute()->runInBackground();
-        $schedule->call($this->deleteDataCall())->everyMinute()->runInBackground();
+
+        $schedule
+            ->command('task:truncate', ['--no-ansi'])
+            ->everyMinute()
+            ->appendOutputTo(storage_path('logs/cron.log'));
     }
 
     /**
@@ -39,12 +41,5 @@ class Kernel extends ConsoleKernel
         $this->load(__DIR__ . '/Commands');
 
         require base_path('routes/console.php');
-    }
-
-    protected function deleteDataCall()
-    {
-        return function () {
-            return Task::truncate() ? 1 : 0;
-        };
     }
 }
