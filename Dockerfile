@@ -63,6 +63,9 @@ CMD cron && tail -f /var/log/cron.log
 # Change current user to www
 USER www
 
+# Running composer install
+# CMD bash -c "composer install"
+
 # Expose port 9000 and start php-fpm server
 EXPOSE 9000
 CMD ["php-fpm"]
